@@ -6,6 +6,7 @@ class NPVCalculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username:'',
       initialInvestment: 0,
       cashInflows: 0,
       numberOfPeriods: 0,
@@ -47,7 +48,9 @@ class NPVCalculator extends React.Component {
   handleSubmit(event) {
     var component = this;
     let NPV = netPresentValue(this.state.initialInvestment, this.state.cashInflows, this.state.numberOfPeriods, this.state.discountRate);
+    debugger;
     this.setState({
+      username: this.props.username,
       netPresentValue: NPV
     },
       function () {
