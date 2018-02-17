@@ -29,7 +29,6 @@ class App extends React.Component {
       url: 'http://localhost:3000/logs',
       data: component.state.username,
       success: function(data) {
-        debugger;
         data = JSON.parse(data);
         component.setState({
           logs: data

@@ -12,7 +12,11 @@ var financialCalcLog = mongoose.Schema({
   initialInvestment: Number,
   discountRate: Number,
   numberOfPeriods: Number,
-  netPresentValue: Number
+  netPresentValue: Number,
+  dateCreated: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 var NPVCalc = mongoose.model('NPVCalc', financialCalcLog);
@@ -27,15 +31,15 @@ var save = (calc) => {
     netPresentValue: calc.netPresentValue
   });
   newCalc.save(function(err, calc) {
-    if (err) {return console.error(err)}
+    if (err) {return console.error(err);}
     else { console.log('Calculation saved!'); }
   });
 };
 
 var retrieve = (username, callback) => {
-  debugger;
   var query = NPVCalc.find({ 'username' : username});
   query.select({});
+  query.sort({ dateCreated: -1 });
   query.limit(10);
   query.exec(function(err, calcs) {
     callback(calcs);

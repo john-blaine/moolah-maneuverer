@@ -11,7 +11,8 @@ class NPVCalculator extends React.Component {
       cashInflows: 0,
       numberOfPeriods: 0,
       discountRate: 0,
-      netPresentValue: "0.00"
+      netPresentValue: "0.00",
+      dateCreated: ''
     };
 
     this.changeInvestment = this.changeInvestment.bind(this);
@@ -48,7 +49,6 @@ class NPVCalculator extends React.Component {
   handleSubmit(event) {
     var component = this;
     let NPV = netPresentValue(this.state.initialInvestment, this.state.cashInflows, this.state.numberOfPeriods, this.state.discountRate);
-    debugger;
     this.setState({
       username: this.props.username,
       netPresentValue: NPV
@@ -99,7 +99,8 @@ class NPVCalculator extends React.Component {
             <input id="discount-rate" type="text" onChange={this.changeDiscountRate}/>
           </label>
         </div>
-        <input type="submit" value="submit" />
+        <p></p>
+        <input type="submit" value="Submit" />
         </form>
         <p></p>
         <div>
