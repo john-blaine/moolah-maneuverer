@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon --inspect server/index.js",
+    "start": "node server/index.js",
     "babelon": "babel . --watch --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline"
   },
   "author": "",
