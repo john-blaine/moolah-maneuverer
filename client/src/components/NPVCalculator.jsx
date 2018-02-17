@@ -45,19 +45,22 @@ class NPVCalculator extends React.Component {
   }
 
   handleSubmit(event) {
+    var component = this;
     let NPV = netPresentValue(this.state.initialInvestment, this.state.cashInflows, this.state.numberOfPeriods, this.state.discountRate);
     this.setState({
       netPresentValue: NPV
-    });
-    var component = this;
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:3000/logs',
-      data: this.state,
-      success: function(data) {
-        console.log('Log data sent!');
+    },
+      function () {
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:3000/logs',
+          data: component.state,
+          success: function(data) {
+            console.log('Log data sent!');
+          }
+        });
       }
-    });
+    );
     event.preventDefault();
   }
 
