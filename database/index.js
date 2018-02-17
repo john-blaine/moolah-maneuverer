@@ -11,8 +11,28 @@ var financialCalcLog = mongoose.Schema({
   cashInflows: Number,
   initialInvestment: Number,
   discountRate: Number,
-  numberOfPeriods: Number
+  numberOfPeriods: Number,
+  netPresentvalue: Number
 });
 
 var NPVCalc = mongoose.model('NPVCalc', financialCalcLog);
+
+var save = (calc) => {
+  let newCalc = new NPVCalc({
+    username: calc.username,
+    cashInflows: calc.cashInflows,
+    initialInvestment: calc.initialInvestment,
+    discountRate: calc.discountRate,
+    numberOfPeriods: calc.numberOfPeriods,
+    netPresentvalue: calc.netPresentvalue
+  });
+  newCalc.save(function(err, calc) {
+    if (err) {return console.error(err)}
+    else { console.log('Calculation saved!'); }
+  });
+};
+
+module.exports = {
+  save : save
+};
 

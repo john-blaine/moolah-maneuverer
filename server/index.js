@@ -11,7 +11,8 @@ app.use(express.static(__dirname + '/../compiled/client/src'));
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
 app.post('/logs', urlencodedParser, function(req, res) {
-  console.log(req.body);
+  database.save(req.body);
+  res.end();
 });
 
 app.listen(3000, () => console.log('Listening on port 3000!'));
