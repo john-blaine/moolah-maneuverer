@@ -44,8 +44,7 @@ class NPVCalculator extends React.Component {
   }
 
   handleSubmit(event) {
-    debugger;
-    alert('Submitted!');
+    alert(netPresentValue(this.state.initialInvestment, this.state.cashInflows, this.state.numberOfPeriods, this.state.discountRate));
     alert(JSON.stringify(this.state));
   }
 
