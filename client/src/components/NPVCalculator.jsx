@@ -1,5 +1,6 @@
 import React from 'react';
 import netPresentValue from './helpers/calculators.js';
+import $ from 'jquery';
 
 class NPVCalculator extends React.Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class NPVCalculator extends React.Component {
       initialInvestment: 0,
       cashInflows: 0,
       numberOfPeriods: 0,
-      discountRate: 0
+      discountRate: 0,
+      netPresentValue: "0.00"
     };
 
     this.changeInvestment = this.changeInvestment.bind(this);
@@ -21,7 +23,6 @@ class NPVCalculator extends React.Component {
   changeInvestment(event) {
     this.setState({
       initialInvestment: event.target.value,
-      // discountRate: event.target.discount-rate
     });
   }
 
@@ -44,44 +45,60 @@ class NPVCalculator extends React.Component {
   }
 
   handleSubmit(event) {
-    alert(netPresentValue(this.state.initialInvestment, this.state.cashInflows, this.state.numberOfPeriods, this.state.discountRate));
-    alert(JSON.stringify(this.state));
+    let NPV = netPresentValue(this.state.initialInvestment, this.state.cashInflows, this.state.numberOfPeriods, this.state.discountRate);
+    this.setState({
+      netPresentValue: NPV
+    });
+    var component = this;
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/logs',
+      data: this.state,
+      success: function(data) {
+        console.log('Log data sent!');
+      }
+    });
+    event.preventDefault();
   }
 
   render() {
     return (
       <div>
-        <h4>Net Present Value Calculator:</h4>
+        <h3>Net Present Value Calculator:</h3>
         <form onSubmit={this.handleSubmit}>
         <div>
           <label>
             Initial Investment:
-            <input id="initial-investment" type="text" initial-investment={this.state.initialInvestment} onChange={this.changeInvestment}/>
+            <input id="initial-investment" type="text"  onChange={this.changeInvestment}/>
           </label>
         </div>
         <div>
         <p></p>
           <label>
             Expected Cash Inflows Per Period:
-            <input id="cash-inflows" type="text" cash-inflows={this.state.cashInflows} onChange={this.changeCashInflows}/>
+            <input id="cash-inflows" type="text" onChange={this.changeCashInflows}/>
           </label>
         </div>
         <div>
         <p></p>
           <label>
             Number Of Periods:
-            <input id="periods" type="text" periods={this.state.numberOfPeriods} onChange={this.changePeriods}/>
+            <input id="periods" type="text" onChange={this.changePeriods}/>
           </label>
         </div>
         <div>
         <p></p>
           <label>
             Discount Rate:
-            <input id="discount-rate" type="text" discount-rate={this.state.discountRate} onChange={this.changeDiscountRate}/>
+            <input id="discount-rate" type="text" onChange={this.changeDiscountRate}/>
           </label>
         </div>
         <input type="submit" value="submit" />
         </form>
+        <p></p>
+        <div>
+          <h4>Net Present Value of Investment: ${this.state.netPresentValue}</h4>
+        </div>
       </div>
     )
   }

@@ -3,7 +3,7 @@ import NPVCalculator from './NPVCalculator.jsx';
 
 const CalculatorList = (props) => (
   <div>
-  <NPVCalculator/>
+    <NPVCalculator username = {props.username}/>
   </div>
 )
 
