@@ -56,7 +56,7 @@ class NPVCalculator extends React.Component {
       function () {
         $.ajax({
           type: 'POST',
-          url: 'http://localhost:3000/logs',
+          url: 'https://aqueous-lake-85865.herokuapp.com/logs',
           data: component.state,
           success: function(data) {
             console.log('Log data sent!');
