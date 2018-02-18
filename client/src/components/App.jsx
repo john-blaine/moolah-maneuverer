@@ -26,7 +26,7 @@ class App extends React.Component {
     var component = this;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:3000/logs',
+      url: 'https://aqueous-lake-85865.herokuapp.com/logs',
       data: component.state.username,
       success: function(data) {
         data = JSON.parse(data);
