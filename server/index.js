@@ -28,5 +28,5 @@ app.get('/logs', urlencodedParser, function(req, res) {
   database.retrieve(username, sendLogs);
 });
 
-app.listen(8080, () => console.log('Listening on port 8080!'));
+app.listen(process.env.PORT || 3000, () => console.log('Listening on port 3000!'));
 
